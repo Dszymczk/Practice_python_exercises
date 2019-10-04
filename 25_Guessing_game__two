@@ -1,0 +1,66 @@
+# Guessing game
+# User thinks a number in a defined range and program ties to guess that number
+#
+# Damian
+import random
+
+
+def question(guess):
+    q = " Does this number is: " + str(guess) + "?(answer y - yes, or n - no)"
+    answer = input(q)
+    if answer == "y":
+        return 1
+    else:
+        print("Lets try again")
+        return 0
+
+# Function guesses a number using the simplest way(least efficient)
+#
+# l_range - lowest possible number
+# h_range - highest possible number
+def simple_guess(l_range, h_range):
+    correct = 0
+    tries = 0
+    guess = l_range
+    while not correct:
+        tries += 1
+        correct = question(guess)
+        guess += 1
+        if guess >= h_range:
+            print(" You lied")
+            return 0
+    return tries
+
+
+# Function guesses a number using variation of binary search
+#
+# l_range - lowest possible number
+# h_range - highest possible number
+def binary_random_guess(l_range, h_range):
+    tries = 0  # gives number of tries
+    guess = random.randrange(l_range, h_range + 1)
+    while 1:
+        tries += 1
+        correct = question(guess)  # tells if program guessed correctly
+        if correct:
+            return tries
+        is_greater = input(" Does number " + str(guess) + " is greater than yours?(y - yes, n - no) ")
+        if is_greater == "y":
+            h_range = guess
+        elif is_greater == "n":
+            l_range = guess + 1
+        else:
+            print(" Don't you want to help me? Well, I will try randomly again")
+        guess = random.randrange(l_range, h_range + 1)
+
+
+
+if __name__ == "__main__":
+    l_range = 1
+    h_range = 100
+    print(" Please, think of a number from ", l_range, " to ", h_range, " and I will try to guess it.")
+    correct = 0
+    tries = binary_random_guess(1, 100)
+    print("I have done it! It have taken ", tries, " tries")
+
+
