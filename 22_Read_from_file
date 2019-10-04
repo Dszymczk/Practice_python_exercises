@@ -1,0 +1,41 @@
+# Given a .txt file that has a list of a bunch of names, count how many of each name there are in the file, and print
+# out the results to the screen. I have a .txt file for you, if you want to use it!
+
+
+# Checks how many unique words are in text file and how many times the repeat
+def count_words(file_name):
+    names_count = {}
+    with open(file_name, "r") as open_file:
+        line = open_file.readline()
+        while line:
+            if line.strip() not in names_count.keys():
+                # print(line.strip(), "nowy")
+                names_count[line.strip()] = 1
+            else:
+                names_count[line.strip()] += 1
+            # print(line.strip())
+            line = open_file.readline()
+    for name, number in names_count.items():
+        print(" There is ", number, " of ", name)
+
+
+# From long text extracts the part that is important and saves it to the new file
+def extract_weather(old_file_name,new_file_name):
+    tekst = ""
+    end_text = ""
+    with open(old_file_name, "r") as old_file:
+        line = old_file.readline()
+        while line:
+            tekst += line[0:line.find("/sun_")]
+            tekst += "\n"
+            line = old_file.readline()
+
+    with open(new_file_name, "w") as new_file:
+        new_file.write(tekst)
+
+
+if __name__ == "__main__":
+    file_name = "22_text_file1.txt"
+    count_words(file_name)
+    extract_weather("22_text_file2.txt", "22_text_file2_tmp.txt")
+    count_words("22_text_file2_tmp.txt")
