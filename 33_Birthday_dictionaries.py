@@ -13,22 +13,28 @@
 # Benjamin Franklin
 # >>> Benjamin Franklin's birthday is 01/17/1706.
 
-birthday_dict = {
-	"Benjamon Franklin": "17/01/1706",
+def find_date(id, base):
+	date = base.get(id, 0)
+	return date
+		
+
+
+
+if __name__ == "__main__":
+	birthday_dict = {
+	"Benjamin Franklin": "17/01/1706",
 	"Mikolaj Kopernik": "19/02/1473",
 	"Galileo Galilei": "15/02/1564",
 	"Izaak Newton": "25/15/1642",
 	"Adam Mickiewicz": "24/12/1798"
 }
 
-if __name__ == "__main__":
 	print("Welcome to the birthday dictionary. We know the birthdays of:")
 	for name in birthday_dict.keys():
 		print(name)
 	name = input("Who's birthday do you want to look up?")
-	if name in birthday_dict.keys():
-		print("We know his birthday date")
-		date = birthday_dict.get(name, "No such Name")
-		print("{}'s birthday is {}".format(name, date))
+	date = find_date(name, birthday_dict)
+	if date:
+		print("{}'s birthday is {}".format(name,date))
 	else:
-		print("Wrong name")
+		print("No such name")
